@@ -49,6 +49,34 @@ public class EmailAddressSort
 	 
 	 return emailAddress; 
   }
+	
+   private List<String> readEmailAddressFile (String filename)
+   {
+	  List<String> emailAddresses = new ArrayList<String>();
+	   
+	  Resource resource = appContext.getResource("classpath:test/" + filename);
+	  try
+	  {
+     	     InputStream is = resource.getInputStream();
+             BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        	
+              String line;
+              while ((line = br.readLine()) != null) {
+                 System.out.println(line);
+		 emailAddresses.add(line);
+       	      } 
+              br.close();
+        	
+      	    }
+	    catch(IOException e)
+	    {
+    		e.printStackTrace();
+    	    }
+    	
+          }
+	
+	return emailAddresses;
+   }
   
 
 }
