@@ -75,11 +75,14 @@ public class EmailAddressSort
   
   private String swapLocalPartAndDomain (String emailAddress)
   {
-	 String part[] = emailAddress.split("@");
-	 
-	 if (part.length == 2)
-	 {
-		 return part[1] + "@" + part[0];
+	 if (emailAddress.contains("@"))
+	 {		 
+	    String part[] = emailAddress.split("@");
+	    
+	    if (part.length == 2 && !part[0].isEmpty() && !part[1].isEmpty())
+	    {
+		  return part[1] + "@" + part[0];
+	    }
 	 }
 	 
 	 return emailAddress; 
