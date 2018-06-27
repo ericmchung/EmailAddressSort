@@ -77,7 +77,7 @@ public class EmailAddressSort
   // Otherwise, it returns the original value without swapping
   private String swapLocalPartAndDomain (String emailAddress)
   {
-	  if (emailAddress.contains("@"))
+	 if (emailAddress.contains("@"))
 	 {		 
 	    String part[] = emailAddress.split("@");
 	    
