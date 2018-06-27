@@ -1,8 +1,8 @@
 Assumptions
 ------------
 * This program is inteneded to run on Unix/Linux.
-* The input file must have .txt extension
-* Every email address in the input file must be in a valid email address format. i.e. localpart@domain
+* The input file must have .txt extension and each line contains only one email address
+* Each email address in the input file must be in a valid email address format. i.e. localpart@domain
 
 
 For Unix/Linux Users
