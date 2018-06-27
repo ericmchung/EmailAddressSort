@@ -1,8 +1,16 @@
-package chung.sort;
+package com.sort;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.Resource;
 
 public class EmailAddressSort
 {
@@ -10,26 +18,53 @@ public class EmailAddressSort
   {
   }
   
-  public List<String> sortEmailAddressByDomain(String file) 
+  public static void main (String args[])
   {
-	  List<String> emailAddresses = new ArrayList<String>();
-	  emailAddresses.add("abc@abc.com");
-	  emailAddresses.add("cde@yahoo.com");
-	  emailAddresses.add("joe@npr.org");
-	  emailAddresses.add("rwq@abc.org");
-	  emailAddresses.add("dave@gibson.com");
+          if (args.length == 1)
+          {
+             if (args[0] != null && args[0].length() > 0 && args[0].endsWith(".txt"))
+             {
+     	        EmailAddressSort emailSort = new EmailAddressSort();
+	        List<String> list = emailSort.sortEmailAddressByDomain("input1.txt");
+	 
+	        System.out.println("!!!! result: ");
+	        for(String str : list)
+	        {
+		  System.out.println(str);
+	        }
+             }
+             else
+             {
+                System.out.println("Invalid parameter. The filename must have .txt extension");
+             }
+          }
+          else
+          {
+              System.out.println("This command can only take one filename as a parameter");
+          }
+  }
+
+  public List<String> sortEmailAddressByDomain(String filename) 
+  {
+	  List<String> emailAddresses = this.readEmailAddressFile(filename);
 
 	  List<String> tempList = new ArrayList<String>();
 	  
+	  // Swap local part and domain of all email addresses to prepare 
+	  // for sorting. 
+	  // i.e. john@npr.org => npr.org@john
 	  for (String emailAddress : emailAddresses)
 	  {
 		  tempList.add(swapLocalPartAndDomain (emailAddress));
 	  }
-	  
+	 
 	  Collections.sort(tempList);
 	 
 	  List<String> resultList = new ArrayList<String>();
-	  
+	 
+	  // Swap local part and domain of all email addresses to 
+	  // restore back to valid email addresses
+	  // i.e. npr.org@john => john@npr.org 
 	  for (String temp : tempList)
 	  {
 		  resultList.add(swapLocalPartAndDomain (temp));
@@ -49,34 +84,37 @@ public class EmailAddressSort
 	 
 	 return emailAddress; 
   }
-	
-   private List<String> readEmailAddressFile (String filename)
-   {
+  
+  private List<String> readEmailAddressFile (String filename)
+  {
 	  List<String> emailAddresses = new ArrayList<String>();
+	  
+	  ApplicationContext appContext = 
+	    	   new ClassPathXmlApplicationContext(new String[] {"test-beans-simple.xml"});
 	   
-	  Resource resource = appContext.getResource("classpath:test/" + filename);
+	  Resource resource = appContext.getResource("classpath:" + filename);
+
 	  try
 	  {
-     	     InputStream is = resource.getInputStream();
+             InputStream is = resource.getInputStream();
              BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        	
-              String line;
-              while ((line = br.readLine()) != null) {
-                 System.out.println(line);
-		 emailAddresses.add(line);
-       	      } 
-              br.close();
-        	
-      	    }
-	    catch(IOException e)
-	    {
-    		e.printStackTrace();
-    	    }
-    	
+       	
+             String line;
+             while ((line = br.readLine()) != null) 
+             {
+	       emailAddresses.add(line);
+      	     } 
+             br.close();
+       	
           }
-	
-	return emailAddresses;
-   }
+	  catch(IOException e)
+	  {
+   		 e.printStackTrace();
+   	  }
+   	
+	  return emailAddresses;
+  }
+
   
 
 }
