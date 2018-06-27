@@ -25,7 +25,7 @@ public class EmailAddressSort
              if (args[0] != null && args[0].length() > 0 && args[0].endsWith(".txt"))
              {
      	        EmailAddressSort emailSort = new EmailAddressSort();
-	        List<String> list = emailSort.sortEmailAddressByDomain("input1.txt");
+	        List<String> list = emailSort.sortEmailAddressByDomain(args[0]);
 	 
 	        System.out.println("!!!! result: ");
 	        for(String str : list)
