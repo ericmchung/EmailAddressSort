@@ -36,5 +36,18 @@ public class EmailAddressSortTests
 		  System.out.println(str);
 	  }
   }
+	
+  @Test
+  public void testBadInput()
+  {
+	  EmailAddressSort emailSort = new EmailAddressSort();
+	  List<String> list = emailSort.sortEmailAddressByDomain("input3.txt");
+	 
+	  System.out.println("!!!! result: ");
+	  for(String str : list)
+	  {
+		  System.out.println(str);
+	  }
+  }
  
 }
