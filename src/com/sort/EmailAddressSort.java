@@ -27,7 +27,7 @@ public class EmailAddressSort
      	        EmailAddressSort emailSort = new EmailAddressSort();
 	        List<String> list = emailSort.sortEmailAddressByDomain(args[0]);
 	 
-	        System.out.println("!!!! result: ");
+	        System.out.println("Sorted result: ");
 	        for(String str : list)
 	        {
 		  System.out.println(str);
