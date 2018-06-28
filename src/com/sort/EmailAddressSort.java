@@ -108,7 +108,8 @@ public class EmailAddressSort
              String line;
              while ((line = br.readLine()) != null) 
              {
-	       emailAddresses.add(line);
+	       if (!line.trim().isEmpty())    
+	          emailAddresses.add(line);
       	     } 
              br.close();
        	
